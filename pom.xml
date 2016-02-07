@@ -200,6 +200,24 @@
                                                 <attach>true</attach>
                                         </configuration>
                                 </plugin>
+
+                                <!-- GPG Signatures -->
+                                <plugin>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-gpg-plugin</artifactId>
+                                        <version>1.5</version>
+
+                                        <executions>
+                                                <execution>
+                                                        <id>sign-artifacts</id>
+                                                        <phase>verify</phase>
+
+                                                        <goals>
+                                                                <goal>sign</goal>
+                                                        </goals>
+                                                </execution>
+                                        </executions>
+                                </plugin>
                         </plugins>
                 </pluginManagement>
 
@@ -216,4 +234,20 @@
                 <module>all</module>
                 <module>observable</module>
         </modules>
+
+        <!-- Deployment Profiles -->
+        <profiles>
+                <profile>
+                        <id>deployment</id>
+
+                        <build>
+                                <plugins>
+                                        <plugin>
+                                                <groupId>org.apache.maven.plugins</groupId>
+                                                <artifactId>maven-gpg-plugin</artifactId>
+                                        </plugin>
+                                </plugins>
+                        </build>
+                </profile>
+        </profiles>
 </project>
