@@ -2,8 +2,8 @@
 [![Latest Tag](https://img.shields.io/github/tag/Torchmind/Mango.svg?style=flat-square&label=Latest Tag)](https://github.com/Torchmind/Mango/tags)
 [![Latest Release](https://img.shields.io/github/release/Torchmind/Mango.svg?style=flat-square&label=Latest Release)](https://github.com/Torchmind/Mango/releases)
 
-Base Defense 2
-==============
+Mango Library
+=============
 
 Table of Contents
 -----------------
