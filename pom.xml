@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2016 Johannes Donath <johannesd@torchmind.com>
+  ~ and other copyright owners as documented in the project's IP log.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ 	http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+
+        <!-- Artifact Information -->
+        <groupId>com.torchmind.mango</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <packaging>pom</packaging>
+
+        <prerequisites>
+                <maven>3.3</maven>
+        </prerequisites>
+
+        <properties>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        </properties>
+
+        <licenses>
+                <license>
+                        <name>Apache License 2.0</name>
+                        <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+                        <distribution>repo</distribution>
+                </license>
+        </licenses>
+
+        <!-- Artifact Metadata -->
+        <name>Torchmind Mango</name>
+        <description>Provides utility components to Java applications.</description>
+        <inceptionYear>2016</inceptionYear>
+
+        <organization>
+                <name>Torchmind</name>
+                <url>https://www.torchmind.com</url>
+        </organization>
+
+        <developers>
+                <developer>
+                        <name>Johannes Donath</name>
+                        <timezone>Europe/Berlin</timezone>
+                        <email>johannesd@torchmind.com</email>
+                        <url>https://www.johannes-donath.com</url>
+
+                        <organization>Torchmind</organization>
+                        <organizationUrl>https://www.torchmind.com</organizationUrl>
+                </developer>
+        </developers>
+
+        <scm>
+                <tag>master</tag>
+                <url>https://github.com/Torchmind/Mango</url>
+                <connection>scm:git:git@github.com:/Torchmind/Mango.git</connection>
+                <developerConnection>scm:git:git@github.com:/Torchmind/Mango.git</developerConnection>
+        </scm>
+
+        <issueManagement>
+                <system>GitHub</system>
+                <url>https://github.com/Torchmind/MANGO/issues</url>
+        </issueManagement>
+
+        <ciManagement>
+                <system>Atlassian Bamboo</system>
+                <url>https://www.torchmind.com/ci/browse/MANGO</url>
+        </ciManagement>
+
+        <distributionManagement>
+                <repository>
+                        <id>torchmind</id>
+                        <name>Torchmind Public Repository</name>
+                        <url>s3://maven.torchmind.com/release</url>
+                </repository>
+
+                <snapshotRepository>
+                        <id>torchmind</id>
+                        <name>Torchmind Public Repository</name>
+                        <url>s3://maven.torchmind.com/snapshot</url>
+                </snapshotRepository>
+        </distributionManagement>
+
+        <!-- Dependencies -->
+        <repositories>
+                <repository>
+                        <id>torchmind</id>
+                        <name>Torchmind Public Repository</name>
+                        <url>https://maven.torchmind.com/release</url>
+                </repository>
+        </repositories>
+
+        <dependencyManagement>
+                <dependencies>
+                        <!-- Modules -->
+                        <dependency>
+                                <groupId>com.torchmind.mango</groupId>
+                                <artifactId>mango</artifactId>
+                                <version>1.0-SNAPSHOT</version>
+                        </dependency>
+
+                        <dependency>
+                                <groupId>com.torchmind.mango</groupId>
+                                <artifactId>observable</artifactId>
+                                <version>1.0-SNAPSHOT</version>
+                        </dependency>
+
+                        <!-- Java -->
+                        <dependency>
+                                <groupId>com.google.code.findbugs</groupId>
+                                <artifactId>jsr305</artifactId>
+                                <version>3.0.1</version>
+                                <scope>provided</scope>
+                        </dependency>
+
+                        <!-- Test Dependencies -->
+                        <dependency>
+                                <groupId>junit</groupId>
+                                <artifactId>junit</artifactId>
+                                <version>4.12</version>
+                                <scope>test</scope>
+                        </dependency>
+                        <dependency>
+                                <groupId>org.mockito</groupId>
+                                <artifactId>mockito-core</artifactId>
+                                <version>2.0.41-beta</version>
+                                <scope>test</scope>
+                        </dependency>
+                </dependencies>
+        </dependencyManagement>
+
+        <!-- Build Settings -->
+        <build>
+                <finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
+                <defaultGoal>clean install</defaultGoal>
+
+                <pluginManagement>
+                        <plugins>
+                                <!-- Java Compiler -->
+                                <plugin>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-compiler-plugin</artifactId>
+                                        <version>3.5</version>
+
+                                        <configuration>
+                                                <source>1.8</source>
+                                                <target>1.8</target>
+                                        </configuration>
+                                </plugin>
+
+                                <!-- Jar Creation -->
+                                <plugin>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-jar-plugin</artifactId>
+                                        <version>2.6</version>
+
+                                        <configuration>
+                                                <archive>
+                                                        <addMavenDescriptor>true</addMavenDescriptor>
+                                                        <compress>true</compress>
+                                                        <index>true</index>
+
+                                                        <manifest>
+                                                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                                        </manifest>
+                                                </archive>
+                                        </configuration>
+                                </plugin>
+
+                                <!-- Attach Sources -->
+                                <plugin>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-source-plugin</artifactId>
+                                        <version>2.4</version>
+
+                                        <configuration>
+                                                <attach>true</attach>
+                                        </configuration>
+                                </plugin>
+
+                                <!-- Attach JavaDoc -->
+                                <plugin>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-javadoc-plugin</artifactId>
+                                        <version>2.10.3</version>
+
+                                        <configuration>
+                                                <attach>true</attach>
+                                        </configuration>
+                                </plugin>
+                        </plugins>
+                </pluginManagement>
+
+                <extensions>
+                        <extension>
+                                <groupId>org.springframework.build</groupId>
+                                <artifactId>aws-maven</artifactId>
+                                <version>5.0.0.RELEASE</version>
+                        </extension>
+                </extensions>
+        </build>
+
+        <modules>
+                <module>all</module>
+                <module>observable</module>
+        </modules>
+</project>
