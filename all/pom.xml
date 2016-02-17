@@ -22,7 +22,7 @@
         <parent>
                 <groupId>com.torchmind.mango</groupId>
                 <artifactId>parent</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0</version>
         </parent>
 
         <!-- Artifact Information -->
