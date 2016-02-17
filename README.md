@@ -31,51 +31,43 @@ Contacts
 Usage
 -----
 
-You may need either one of the following repositories (either the stable or snapshot repository) depending on the
-library version you chose to use:
-
-```xml
-<!-- Stable Releases -->
-<repository>
-        <id>torchmind</id>
-        <name>Torchmind Public Repository</name>
-        <url>https://maven.torchmind.com/release</url>
-</repository>
-
-<!-- Testing (Unstable) Releases -->
-<repository>
-        <id>torchmind</id>
-        <name>Torchmind Public Repository</name>
-        <url>https://maven.torchmind.com/snapshot</url>
-        
-        <snapshots>
-                <enabled>true</enabled>
-        </snapshots>
-</repository>
-```
-
-In addition you may either choose to depend on the entire framework (and thus all of its components) or any of its
-modules as shown below:
+Mango is available via the maven central repository and thus you may directly specify it as a dependency in your
+maven project configuration:
 
 ```xml
 <!-- All Components -->
 <dependency>
         <groupId>com.torchmind.mango</groupId>
         <artifactId>mango</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
 </dependency>
 
 <!-- Single Component -->
 <dependency>
         <groupId>com.torchmind.mango</groupId>
         <artifactId>$moduleName</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
 </dependency>
 ```
 
 where ```$moduleName``` may be one of the following:
 
 * __observable__ - for the the observable properties component
+
+If you do however require an unstable revision of the library you will need to add the Sonatype snapshot repository to
+the list of your repositories as maven central does not ship unstable versions:
+
+```xml
+<repository>
+        <id>sonatype</id>
+        <name>Sonatype Open Source Repository</name>
+        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+
+        <snapshots>
+                <enabled>true</enabled>
+        </snapshots>
+</repository>
+```
 
 License
 -------
