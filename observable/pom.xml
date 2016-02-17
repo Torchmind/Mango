@@ -32,7 +32,6 @@
         <!-- Artifact Metadata -->
         <name>Torchmind Mango Observables</name>
         <description>Provides support for observable values within Java.</description>
-        <url>https://github.com/Torchmind/Mango</url>
         <inceptionYear>2016</inceptionYear>
 
         <!-- Dependencies -->

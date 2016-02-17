@@ -42,6 +42,7 @@
         <!-- Artifact Metadata -->
         <name>Torchmind Mango</name>
         <description>Provides utility components to Java applications.</description>
+        <url>https://github.com/Torchmind/Mango</url>
         <inceptionYear>2016</inceptionYear>
 
         <organization>
