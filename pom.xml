@@ -217,6 +217,10 @@
                                                         </goals>
                                                 </execution>
                                         </executions>
+
+                                        <configuration>
+                                                <keyname>35578E37</keyname>
+                                        </configuration>
                                 </plugin>
                         </plugins>
                 </pluginManagement>
