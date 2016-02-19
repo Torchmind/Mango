@@ -33,14 +33,14 @@ import java.util.function.Consumer;
  * @author Johannes Donath
  */
 abstract class AbstractObservableProperty<T> extends AbstractObservableValue<T> implements ObservableProperty<T> {
+        private boolean bidirectional = false;
+        private ObservableProperty<T> boundProperty = null;
         private final Deque<ObservablePropertyListener<T>> listenerQueue = new ConcurrentLinkedDeque<>();
         private T value;
         private final ObservablePropertyListener<T> propertyListener = (ob, o, n) -> {
                 this.value = n;
                 this.notify(o, n);
         };
-        private ObservableProperty<T> boundProperty = null;
-        private boolean bidirectional = false;
 
         public AbstractObservableProperty(@Nullable T value) {
                 this.setValue(value);
