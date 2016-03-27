@@ -97,9 +97,14 @@
                         <dependency>
                                 <groupId>com.torchmind.mango</groupId>
                                 <artifactId>mango</artifactId>
-                                <version>1.0</version>
+                                <version>1.1-SNAPSHOT</version>
                         </dependency>
 
+                        <dependency>
+                                <groupId>com.torchmind.mango</groupId>
+                                <artifactId>concurrency</artifactId>
+                                <version>1.1-SNAPSHOT</version>
+                        </dependency>
                         <dependency>
                                 <groupId>com.torchmind.mango</groupId>
                                 <artifactId>observable</artifactId>
@@ -229,6 +234,7 @@
 
         <modules>
                 <module>all</module>
+                <module>concurrency</module>
                 <module>observable</module>
         </modules>
 
