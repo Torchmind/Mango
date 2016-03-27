@@ -55,9 +55,6 @@
 
         <!-- Build Settings -->
         <build>
-                <finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
-                <defaultGoal>clean install</defaultGoal>
-
                 <plugins>
                         <!-- Java Compiler -->
                         <plugin>
