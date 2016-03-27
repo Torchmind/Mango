@@ -52,6 +52,7 @@ maven project configuration:
 
 where ```$moduleName``` may be one of the following:
 
+* __concurrency__ - for the concurrency syntax sugar component
 * __observable__ - for the the observable properties component
 
 If you do however require an unstable revision of the library you will need to add the Sonatype snapshot repository to
