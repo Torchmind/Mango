@@ -23,6 +23,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 
 /**
  * Provides a delegating smart read write lock implementation.
+ *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
 @Immutable

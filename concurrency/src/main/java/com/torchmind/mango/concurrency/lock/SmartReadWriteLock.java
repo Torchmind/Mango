@@ -23,6 +23,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 
 /**
  * Provides a simple ReadWriteLock extension which utilizes the smart extensions provided by this package.
+ *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
 @Immutable
@@ -30,7 +31,15 @@ import java.util.concurrent.locks.ReadWriteLock;
 public interface SmartReadWriteLock extends ReadWriteLock {
 
         /**
+         * {@inheritDoc}
+         */
+        @Nonnull
+        @Override
+        SmartReadLock readLock();
+
+        /**
          * Creates a new smart read write lock by wrapping an existing instance.
+         *
          * @param lock a lock.
          * @return a wrapped smart read write lock.
          */
@@ -38,13 +47,6 @@ public interface SmartReadWriteLock extends ReadWriteLock {
         static SmartReadWriteLock wrap(@Nonnull ReadWriteLock lock) {
                 return new SmartReadWriteLockImpl(lock);
         }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        SmartReadLock readLock();
 
         /**
          * {@inheritDoc}

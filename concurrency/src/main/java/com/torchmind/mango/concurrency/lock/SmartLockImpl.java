@@ -24,6 +24,7 @@ import java.util.concurrent.locks.Lock;
 
 /**
  * Provides a delegating smart lock implementation.
+ *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
 class SmartLockImpl implements SmartLock {
@@ -59,6 +60,31 @@ class SmartLockImpl implements SmartLock {
                 } finally {
                         this.unlock();
                 }
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void lock() {
+                this.lock.lock();
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void lockInterruptibly() throws InterruptedException {
+                this.lock.lockInterruptibly();
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Nonnull
+        @Override
+        public Condition newCondition() {
+                return this.lock.newCondition();
         }
 
         /**
@@ -101,22 +127,6 @@ class SmartLockImpl implements SmartLock {
          * {@inheritDoc}
          */
         @Override
-        public void lock() {
-                this.lock.lock();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void lockInterruptibly() throws InterruptedException {
-                this.lock.lockInterruptibly();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
         public boolean tryLock() {
                 return this.lock.tryLock();
         }
@@ -135,14 +145,5 @@ class SmartLockImpl implements SmartLock {
         @Override
         public void unlock() {
                 this.lock.unlock();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public Condition newCondition() {
-                return this.lock.newCondition();
         }
 }

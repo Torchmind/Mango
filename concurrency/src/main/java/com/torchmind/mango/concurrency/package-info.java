@@ -17,6 +17,7 @@
 
 /**
  * Provides syntax improving structures for elements commonly needed in concurrent programming.
+ *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
 package com.torchmind.mango.concurrency;

@@ -23,6 +23,7 @@ import java.util.function.Supplier;
 
 /**
  * Provides a delegating smart read lock implementation.
+ *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
 class SmartReadLockImpl extends SmartLockImpl implements SmartReadLock {

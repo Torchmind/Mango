@@ -17,6 +17,7 @@
 
 /**
  * Provides syntax sugar for Java's lock mechanism.
+ *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
 package com.torchmind.mango.concurrency.lock;
