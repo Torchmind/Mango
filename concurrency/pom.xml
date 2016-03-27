@@ -61,6 +61,12 @@
                                 <artifactId>maven-compiler-plugin</artifactId>
                         </plugin>
 
+                        <!-- Manifest Generation -->
+                        <plugin>
+                                <groupId>org.apache.felix</groupId>
+                                <artifactId>maven-bundle-plugin</artifactId>
+                        </plugin>
+
                         <!-- Jar Creation -->
                         <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>

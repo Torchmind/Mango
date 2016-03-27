@@ -154,6 +154,24 @@
                                         </configuration>
                                 </plugin>
 
+                                <!-- Manifest Generation -->
+                                <plugin>
+                                        <groupId>org.apache.felix</groupId>
+                                        <artifactId>maven-bundle-plugin</artifactId>
+                                        <version>3.0.1</version>
+
+                                        <executions>
+                                                <execution>
+                                                        <id>bundle-manifest</id>
+                                                        <phase>process-classes</phase>
+
+                                                        <goals>
+                                                                <goal>manifest</goal>
+                                                        </goals>
+                                                </execution>
+                                        </executions>
+                                </plugin>
+
                                 <!-- Jar Creation -->
                                 <plugin>
                                         <groupId>org.apache.maven.plugins</groupId>
@@ -162,13 +180,11 @@
 
                                         <configuration>
                                                 <archive>
+                                                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+
                                                         <addMavenDescriptor>true</addMavenDescriptor>
                                                         <compress>true</compress>
                                                         <index>true</index>
-
-                                                        <manifest>
-                                                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                                                        </manifest>
                                                 </archive>
                                         </configuration>
                                 </plugin>
