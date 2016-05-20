@@ -30,7 +30,7 @@
         <packaging>jar</packaging>
 
         <!-- Artifact Metadata -->
-        <name>Torchmind Mango Concurrency</name>
+        <name>Mango Concurrency</name>
         <description>Provides a spoon full of syntax sugar for concurrent programming.</description>
         <inceptionYear>2016</inceptionYear>
 

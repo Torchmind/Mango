@@ -31,7 +31,7 @@
         <packaging>jar</packaging>
 
         <!-- Artifact Metadata -->
-        <name>Torchmind Mango Observables</name>
+        <name>Mango Observables</name>
         <description>Provides support for observable values within Java.</description>
         <inceptionYear>2016</inceptionYear>
 

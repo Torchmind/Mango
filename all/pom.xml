@@ -31,7 +31,7 @@
         <packaging>pom</packaging>
 
         <!-- Artifact Metadata -->
-        <name>Torchmind Mango</name>
+        <name>Mango</name>
         <description>Provides utility components to Java applications.</description>
         <inceptionYear>2016</inceptionYear>
 
