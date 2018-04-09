@@ -44,8 +44,7 @@ public interface FunctionalLock extends Lock {
    * Executes an arbitrary runnable within the protection of this lock.
    *
    * @param runnable a runnable declaring the action to be taken within the safety of this lock.
-   * @see #lock() for a more specific documentation on the locking process.
-   * @see #unlock() for a more specific documentation on the unlocking process.
+   * @see #lock()
    */
   default void runProtected(@NonNull Runnable runnable) {
     this.lock();
@@ -80,8 +79,7 @@ public interface FunctionalLock extends Lock {
    * @param runnable a runnable declaring the action to be taken within the safety of this lock.
    * @return true if the lock was acquired, false if another thread is currently holding this lock
    * and no action was taken.
-   * @see #tryLock() for a more specific documentation on the locking process.
-   * @see #unlock() for a more specific documentation on the unlocking process.
+   * @see #tryLock()
    */
   default boolean tryRunProtected(@NonNull Runnable runnable) {
     if (!this.tryLock()) {
@@ -105,8 +103,7 @@ public interface FunctionalLock extends Lock {
    * @return true if the lock was acquired, false if another thread is currently holding this lock
    * and no action was taken.
    * @throws InterruptedException when the specified amount of time is exceeded.
-   * @see #tryLock(long, TimeUnit) for a more specific documentation on the locking process.
-   * @see #unlock() for a more specific documentation on the unlocking process.
+   * @see #tryLock(long, TimeUnit)
    */
   default boolean tryRunProtected(long time, @NonNull TimeUnit timeUnit, @NonNull Runnable runnable)
       throws InterruptedException {
