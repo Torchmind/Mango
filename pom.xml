@@ -102,7 +102,7 @@
         <version>2.0-SNAPSHOT</version>
       </dependency>
 
-      <!-- Java -->
+      <!-- Utilities -->
       <dependency>
         <groupId>com.google.code.findbugs</groupId>
         <artifactId>jsr305</artifactId>
@@ -213,7 +213,6 @@
     <module>concurrency</module>
   </modules>
 
-  <!-- Deployment Profiles -->
   <profiles>
     <profile>
       <id>deployment</id>
