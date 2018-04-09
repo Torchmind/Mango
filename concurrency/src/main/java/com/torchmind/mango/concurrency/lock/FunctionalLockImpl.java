@@ -38,20 +38,6 @@ class FunctionalLockImpl implements FunctionalLock {
    * {@inheritDoc}
    */
   @Override
-  public void runProtected(@NonNull Runnable runnable) {
-    this.lock();
-
-    try {
-      runnable.run();
-    } finally {
-      this.unlock();
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public void lock() {
     this.lock.lock();
   }
@@ -77,43 +63,6 @@ class FunctionalLockImpl implements FunctionalLock {
    * {@inheritDoc}
    */
   @Override
-  public boolean tryRunProtected(@NonNull Runnable runnable) {
-    if (!this.tryLock()) {
-      return false;
-    }
-
-    try {
-      runnable.run();
-    } finally {
-      this.unlock();
-    }
-
-    return true;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean tryRunProtected(long time, @NonNull TimeUnit timeUnit, @NonNull Runnable runnable)
-      throws InterruptedException {
-    if (!this.tryLock(time, timeUnit)) {
-      return false;
-    }
-
-    try {
-      runnable.run();
-    } finally {
-      this.unlock();
-    }
-
-    return true;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public boolean tryLock() {
     return this.lock.tryLock();
   }
@@ -122,8 +71,8 @@ class FunctionalLockImpl implements FunctionalLock {
    * {@inheritDoc}
    */
   @Override
-  public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
-    return this.lock.tryLock(time, unit);
+  public boolean tryLock(long l, @NonNull TimeUnit timeUnit) throws InterruptedException {
+    return this.lock.tryLock(l, timeUnit);
   }
 
   /**

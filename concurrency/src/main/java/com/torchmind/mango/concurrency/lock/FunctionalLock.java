@@ -46,7 +46,15 @@ public interface FunctionalLock extends Lock {
    * @see #lock() for a more specific documentation on the locking process.
    * @see #unlock() for a more specific documentation on the unlocking process.
    */
-  void runProtected(@NonNull Runnable runnable);
+  default void runProtected(@NonNull Runnable runnable) {
+    this.lock();
+
+    try {
+      runnable.run();
+    } finally {
+      this.unlock();
+    }
+  }
 
   /**
    * Attempts to acquire the lock, runProtected and action and release the lock.
@@ -57,7 +65,18 @@ public interface FunctionalLock extends Lock {
    * @see #tryLock() for a more specific documentation on the locking process.
    * @see #unlock() for a more specific documentation on the unlocking process.
    */
-  boolean tryRunProtected(@NonNull Runnable runnable);
+  default boolean tryRunProtected(@NonNull Runnable runnable) {
+    if (!this.tryLock()) {
+      return false;
+    }
+
+    try {
+      runnable.run();
+      return true;
+    } finally {
+      this.unlock();
+    }
+  }
 
   /**
    * Attempts to acquire the lock, runProtected and action and release the lock while limiting the
@@ -72,6 +91,17 @@ public interface FunctionalLock extends Lock {
    * @see #tryLock(long, TimeUnit) for a more specific documentation on the locking process.
    * @see #unlock() for a more specific documentation on the unlocking process.
    */
-  boolean tryRunProtected(long time, @NonNull TimeUnit timeUnit, @NonNull Runnable runnable)
-      throws InterruptedException;
+  default boolean tryRunProtected(long time, @NonNull TimeUnit timeUnit, @NonNull Runnable runnable)
+      throws InterruptedException {
+    if (!this.tryLock(time, timeUnit)) {
+      return false;
+    }
+
+    try {
+      runnable.run();
+      return true;
+    } finally {
+      this.unlock();
+    }
+  }
 }
