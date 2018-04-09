@@ -107,11 +107,6 @@
         <artifactId>concurrency</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
-      <dependency>
-        <groupId>com.torchmind.mango</groupId>
-        <artifactId>observable</artifactId>
-        <version>1.0</version>
-      </dependency>
 
       <!-- Java -->
       <dependency>
@@ -253,7 +248,6 @@
   <modules>
     <module>all</module>
     <module>concurrency</module>
-    <module>observable</module>
   </modules>
 
   <!-- Deployment Profiles -->
