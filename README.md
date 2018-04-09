@@ -25,7 +25,7 @@ Usage
 
 ```xml
 <dependency>
-  <groupId>com.torchmind.nago</groupId>
+  <groupId>com.torchmind.mango</groupId>
   <artifactId><!-- DESIRED MODULE HERE --></artifactId>
   <version>1.0</version>
 </dependency>
@@ -41,7 +41,7 @@ Usage
 </repository>
 
 <dependency>
-  <groupId>com.torchmind.nago</groupId>
+  <groupId>com.torchmind.mango</groupId>
   <artifactId><!-- DESIRED MODULE HERE --></artifactId>
   <version>1.0-SNAPSHOT</version>
 </dependency>
