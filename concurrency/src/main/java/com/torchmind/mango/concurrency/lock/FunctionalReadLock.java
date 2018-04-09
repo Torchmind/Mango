@@ -34,7 +34,7 @@ import javax.annotation.concurrent.ThreadSafe;
  */
 @Immutable
 @ThreadSafe
-public interface SmartReadLock extends SmartLock {
+public interface FunctionalReadLock extends FunctionalLock {
 
   /**
    * Creates a smart read lock instance by wrapping an existing lock.
@@ -43,8 +43,8 @@ public interface SmartReadLock extends SmartLock {
    * @return a wrapped read smart lock.
    */
   @Nonnull
-  static SmartReadLock wrap(@Nonnull Lock lock) {
-    return new SmartReadLockImpl(lock);
+  static FunctionalReadLock wrap(@Nonnull Lock lock) {
+    return new FunctionalReadLockImpl(lock);
   }
 
   /**

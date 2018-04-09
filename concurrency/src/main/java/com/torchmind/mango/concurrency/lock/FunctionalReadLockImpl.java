@@ -29,9 +29,9 @@ import javax.annotation.Nullable;
  *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
-class SmartReadLockImpl extends SmartLockImpl implements SmartReadLock {
+class FunctionalReadLockImpl extends FunctionalLockImpl implements FunctionalReadLock {
 
-  SmartReadLockImpl(@Nonnull Lock lock) {
+  FunctionalReadLockImpl(@Nonnull Lock lock) {
     super(lock);
   }
 

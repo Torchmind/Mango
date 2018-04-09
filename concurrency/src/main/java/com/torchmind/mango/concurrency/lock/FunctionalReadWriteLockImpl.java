@@ -28,14 +28,14 @@ import javax.annotation.concurrent.ThreadSafe;
  */
 @Immutable
 @ThreadSafe
-class SmartReadWriteLockImpl implements SmartReadWriteLock {
+class FunctionalReadWriteLockImpl implements FunctionalReadWriteLock {
 
-  private final SmartReadLock readLock;
-  private final SmartLock writeLock;
+  private final FunctionalReadLock readLock;
+  private final FunctionalLock writeLock;
 
-  SmartReadWriteLockImpl(@Nonnull ReadWriteLock lock) {
-    this.readLock = SmartReadLock.wrap(lock.readLock());
-    this.writeLock = SmartLock.wrap(lock.writeLock());
+  FunctionalReadWriteLockImpl(@Nonnull ReadWriteLock lock) {
+    this.readLock = FunctionalReadLock.wrap(lock.readLock());
+    this.writeLock = FunctionalLock.wrap(lock.writeLock());
   }
 
   /**
@@ -43,7 +43,7 @@ class SmartReadWriteLockImpl implements SmartReadWriteLock {
    */
   @Nonnull
   @Override
-  public SmartReadLock readLock() {
+  public FunctionalReadLock readLock() {
     return this.readLock;
   }
 
@@ -52,7 +52,7 @@ class SmartReadWriteLockImpl implements SmartReadWriteLock {
    */
   @Nonnull
   @Override
-  public SmartLock writeLock() {
+  public FunctionalLock writeLock() {
     return this.writeLock;
   }
 }

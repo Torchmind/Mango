@@ -29,7 +29,7 @@ import javax.annotation.concurrent.ThreadSafe;
  */
 @Immutable
 @ThreadSafe
-public interface SmartReadWriteLock extends ReadWriteLock {
+public interface FunctionalReadWriteLock extends ReadWriteLock {
 
   /**
    * Creates a new smart read write lock by wrapping an existing instance.
@@ -38,8 +38,8 @@ public interface SmartReadWriteLock extends ReadWriteLock {
    * @return a wrapped smart read write lock.
    */
   @Nonnull
-  static SmartReadWriteLock wrap(@Nonnull ReadWriteLock lock) {
-    return new SmartReadWriteLockImpl(lock);
+  static FunctionalReadWriteLock wrap(@Nonnull ReadWriteLock lock) {
+    return new FunctionalReadWriteLockImpl(lock);
   }
 
   /**
@@ -47,12 +47,12 @@ public interface SmartReadWriteLock extends ReadWriteLock {
    */
   @Nonnull
   @Override
-  SmartReadLock readLock();
+  FunctionalReadLock readLock();
 
   /**
    * {@inheritDoc}
    */
   @Nonnull
   @Override
-  SmartLock writeLock();
+  FunctionalLock writeLock();
 }

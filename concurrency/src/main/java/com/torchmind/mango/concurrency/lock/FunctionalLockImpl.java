@@ -27,11 +27,11 @@ import javax.annotation.Nonnull;
  *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
-class SmartLockImpl implements SmartLock {
+class FunctionalLockImpl implements FunctionalLock {
 
   private final Lock lock;
 
-  SmartLockImpl(@Nonnull Lock lock) {
+  FunctionalLockImpl(@Nonnull Lock lock) {
     this.lock = lock;
   }
 
@@ -39,22 +39,8 @@ class SmartLockImpl implements SmartLock {
    * {@inheritDoc}
    */
   @Override
-  public void execute(@Nonnull Runnable runnable) {
+  public void runProtected(@Nonnull Runnable runnable) {
     this.lock();
-
-    try {
-      runnable.run();
-    } finally {
-      this.unlock();
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void executeInterruptibly(@Nonnull Runnable runnable) throws InterruptedException {
-    this.lockInterruptibly();
 
     try {
       runnable.run();
@@ -92,7 +78,7 @@ class SmartLockImpl implements SmartLock {
    * {@inheritDoc}
    */
   @Override
-  public boolean tryExecute(@Nonnull Runnable runnable) {
+  public boolean tryRunProtected(@Nonnull Runnable runnable) {
     if (!this.tryLock()) {
       return false;
     }
@@ -110,7 +96,7 @@ class SmartLockImpl implements SmartLock {
    * {@inheritDoc}
    */
   @Override
-  public boolean tryExecute(@Nonnegative long time, @Nonnull TimeUnit timeUnit,
+  public boolean tryRunProtected(@Nonnegative long time, @Nonnull TimeUnit timeUnit,
       @Nonnull Runnable runnable) throws InterruptedException {
     if (!this.tryLock(time, timeUnit)) {
       return false;
