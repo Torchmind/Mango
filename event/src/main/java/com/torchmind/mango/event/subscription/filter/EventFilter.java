@@ -32,6 +32,12 @@ import java.util.Set;
 public interface EventFilter {
 
   /**
+   * Defines a standard filter which accepts any given type of event.
+   */
+  EventFilter DEFAULT_FILTER = new ConfigurableEventFilter(Collections.singleton(Object.class),
+      false, true);
+
+  /**
    * <p>Evaluates whether this filter can theoretically matches events of the indicated type.</p>
    *
    * <p>The return value of this method must be constant (e.g. cannot change over time) as it is
