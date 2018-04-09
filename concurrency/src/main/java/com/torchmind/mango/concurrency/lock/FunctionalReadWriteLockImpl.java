@@ -26,11 +26,11 @@ import java.util.concurrent.locks.ReadWriteLock;
  */
 class FunctionalReadWriteLockImpl implements FunctionalReadWriteLock {
 
-  private final FunctionalReadLock readLock;
+  private final FunctionalLock readLock;
   private final FunctionalLock writeLock;
 
   FunctionalReadWriteLockImpl(@NonNull ReadWriteLock lock) {
-    this.readLock = FunctionalReadLock.wrap(lock.readLock());
+    this.readLock = FunctionalLock.wrap(lock.readLock());
     this.writeLock = FunctionalLock.wrap(lock.writeLock());
   }
 
@@ -39,7 +39,7 @@ class FunctionalReadWriteLockImpl implements FunctionalReadWriteLock {
    */
   @NonNull
   @Override
-  public FunctionalReadLock readLock() {
+  public FunctionalLock readLock() {
     return this.readLock;
   }
 

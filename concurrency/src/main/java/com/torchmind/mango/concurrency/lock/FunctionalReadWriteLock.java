@@ -43,7 +43,7 @@ public interface FunctionalReadWriteLock extends ReadWriteLock {
    */
   @NonNull
   @Override
-  FunctionalReadLock readLock();
+  FunctionalLock readLock();
 
   /**
    * {@inheritDoc}
