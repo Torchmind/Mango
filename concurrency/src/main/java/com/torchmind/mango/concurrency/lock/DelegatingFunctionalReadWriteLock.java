@@ -20,7 +20,8 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import java.util.concurrent.locks.ReadWriteLock;
 
 /**
- * Provides a delegating smart read write lock implementation.
+ * Provides a wrapper which delegates all of its lock calls to an arbitrary read/write lock
+ * implementation in order to provide support for the functional lock specification.
  *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
