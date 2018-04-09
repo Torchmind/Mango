@@ -16,24 +16,20 @@
  */
 package com.torchmind.mango.concurrency.lock;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import java.util.concurrent.locks.ReadWriteLock;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Provides a delegating smart read write lock implementation.
  *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
-@Immutable
-@ThreadSafe
 class FunctionalReadWriteLockImpl implements FunctionalReadWriteLock {
 
   private final FunctionalReadLock readLock;
   private final FunctionalLock writeLock;
 
-  FunctionalReadWriteLockImpl(@Nonnull ReadWriteLock lock) {
+  FunctionalReadWriteLockImpl(@NonNull ReadWriteLock lock) {
     this.readLock = FunctionalReadLock.wrap(lock.readLock());
     this.writeLock = FunctionalLock.wrap(lock.writeLock());
   }
@@ -41,7 +37,7 @@ class FunctionalReadWriteLockImpl implements FunctionalReadWriteLock {
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   @Override
   public FunctionalReadLock readLock() {
     return this.readLock;
@@ -50,7 +46,7 @@ class FunctionalReadWriteLockImpl implements FunctionalReadWriteLock {
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   @Override
   public FunctionalLock writeLock() {
     return this.writeLock;

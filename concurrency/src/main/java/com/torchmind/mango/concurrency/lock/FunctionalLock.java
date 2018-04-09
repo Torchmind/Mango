@@ -16,10 +16,9 @@
  */
 package com.torchmind.mango.concurrency.lock;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 
 /**
  * Extends the lock specification to provide more modern approaches for executing operations inside
@@ -35,8 +34,8 @@ public interface FunctionalLock extends Lock {
    * @param lock a lock.
    * @return a wrapped smart lock.
    */
-  @Nonnull
-  static FunctionalLock wrap(@Nonnull Lock lock) {
+  @NonNull
+  static FunctionalLock wrap(@NonNull Lock lock) {
     return new FunctionalLockImpl(lock);
   }
 
@@ -47,7 +46,7 @@ public interface FunctionalLock extends Lock {
    * @see #lock() for a more specific documentation on the locking process.
    * @see #unlock() for a more specific documentation on the unlocking process.
    */
-  void runProtected(@Nonnull Runnable runnable);
+  void runProtected(@NonNull Runnable runnable);
 
   /**
    * Attempts to acquire the lock, runProtected and action and release the lock.
@@ -58,7 +57,7 @@ public interface FunctionalLock extends Lock {
    * @see #tryLock() for a more specific documentation on the locking process.
    * @see #unlock() for a more specific documentation on the unlocking process.
    */
-  boolean tryRunProtected(@Nonnull Runnable runnable);
+  boolean tryRunProtected(@NonNull Runnable runnable);
 
   /**
    * Attempts to acquire the lock, runProtected and action and release the lock while limiting the
@@ -73,6 +72,6 @@ public interface FunctionalLock extends Lock {
    * @see #tryLock(long, TimeUnit) for a more specific documentation on the locking process.
    * @see #unlock() for a more specific documentation on the unlocking process.
    */
-  boolean tryRunProtected(@Nonnegative long time, @Nonnull TimeUnit timeUnit, @Nonnull Runnable runnable)
+  boolean tryRunProtected(long time, @NonNull TimeUnit timeUnit, @NonNull Runnable runnable)
       throws InterruptedException;
 }

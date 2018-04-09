@@ -16,10 +16,8 @@
  */
 package com.torchmind.mango.concurrency.lock;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import java.util.concurrent.locks.ReadWriteLock;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Provides a simple ReadWriteLock extension which utilizes the smart extensions provided by this
@@ -27,8 +25,6 @@ import javax.annotation.concurrent.ThreadSafe;
  *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
-@Immutable
-@ThreadSafe
 public interface FunctionalReadWriteLock extends ReadWriteLock {
 
   /**
@@ -37,22 +33,22 @@ public interface FunctionalReadWriteLock extends ReadWriteLock {
    * @param lock a lock.
    * @return a wrapped smart read write lock.
    */
-  @Nonnull
-  static FunctionalReadWriteLock wrap(@Nonnull ReadWriteLock lock) {
+  @NonNull
+  static FunctionalReadWriteLock wrap(@NonNull ReadWriteLock lock) {
     return new FunctionalReadWriteLockImpl(lock);
   }
 
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   @Override
   FunctionalReadLock readLock();
 
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   @Override
   FunctionalLock writeLock();
 }

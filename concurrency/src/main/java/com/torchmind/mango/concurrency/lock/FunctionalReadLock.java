@@ -16,15 +16,12 @@
  */
 package com.torchmind.mango.concurrency.lock;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.function.Supplier;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * Provides a few extensions to Java's locks to improve code quality when working with blocking
@@ -32,8 +29,6 @@ import javax.annotation.concurrent.ThreadSafe;
  *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
-@Immutable
-@ThreadSafe
 public interface FunctionalReadLock extends FunctionalLock {
 
   /**
@@ -42,8 +37,8 @@ public interface FunctionalReadLock extends FunctionalLock {
    * @param lock a lock.
    * @return a wrapped read smart lock.
    */
-  @Nonnull
-  static FunctionalReadLock wrap(@Nonnull Lock lock) {
+  @NonNull
+  static FunctionalReadLock wrap(@NonNull Lock lock) {
     return new FunctionalReadLockImpl(lock);
   }
 
@@ -56,7 +51,7 @@ public interface FunctionalReadLock extends FunctionalLock {
    * @see #lock() for a more specific documentation on the locking process.
    * @see #unlock() for a more specific documentation on the unlocking process.
    */
-  <R> R get(@Nonnull Supplier<R> supplier);
+  <R> R get(@NonNull Supplier<R> supplier);
 
   /**
    * Acquires the lock, retrieves a value and releases the lock.
@@ -69,7 +64,7 @@ public interface FunctionalReadLock extends FunctionalLock {
    * @see #lockInterruptibly() for a more specific documentation on the locking process.
    * @see #unlock() for a more specific documentation on the unlocking process.
    */
-  <R> R getInterruptibly(@Nonnull Supplier<R> supplier) throws InterruptedException;
+  <R> R getInterruptibly(@NonNull Supplier<R> supplier) throws InterruptedException;
 
   /**
    * Tries to acquire the lock, retrieve a value and release the lock.
@@ -80,8 +75,8 @@ public interface FunctionalReadLock extends FunctionalLock {
    * @see #tryLock() for a more specific documentation on the locking process.
    * @see #unlock() for a more specific documentation on the unlocking process.
    */
-  @Nonnull
-  <R> Optional<R> tryGet(@Nonnull Supplier<R> supplier);
+  @NonNull
+  <R> Optional<R> tryGet(@NonNull Supplier<R> supplier);
 
   /**
    * Tries to acquire the lock, retrieve a value and release the lock while ensuring the specified
@@ -97,9 +92,9 @@ public interface FunctionalReadLock extends FunctionalLock {
    * @see #tryLock(long, TimeUnit) for a more specific documentation on the locking process.
    * @see #unlock() for a more specific documentation on the unlocking process.
    */
-  @Nonnull
-  <R> Optional<R> tryGet(@Nonnegative long time, @Nonnull TimeUnit timeUnit,
-      @Nonnull Supplier<R> supplier) throws InterruptedException;
+  @NonNull
+  <R> Optional<R> tryGet(long time, @NonNull TimeUnit timeUnit, @NonNull Supplier<R> supplier)
+      throws InterruptedException;
 
   /**
    * Releases the lock and returns a passed value.
@@ -119,5 +114,5 @@ public interface FunctionalReadLock extends FunctionalLock {
    * @return a value.
    * @see #unlock() for a more specific documentation on the unlocking process.
    */
-  <R> R unlock(@Nonnull Supplier<R> supplier);
+  <R> R unlock(@NonNull Supplier<R> supplier);
 }

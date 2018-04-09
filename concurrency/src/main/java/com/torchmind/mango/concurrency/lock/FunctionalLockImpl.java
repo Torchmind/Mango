@@ -16,11 +16,10 @@
  */
 package com.torchmind.mango.concurrency.lock;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 
 /**
  * Provides a delegating smart lock implementation.
@@ -31,7 +30,7 @@ class FunctionalLockImpl implements FunctionalLock {
 
   private final Lock lock;
 
-  FunctionalLockImpl(@Nonnull Lock lock) {
+  FunctionalLockImpl(@NonNull Lock lock) {
     this.lock = lock;
   }
 
@@ -39,7 +38,7 @@ class FunctionalLockImpl implements FunctionalLock {
    * {@inheritDoc}
    */
   @Override
-  public void runProtected(@Nonnull Runnable runnable) {
+  public void runProtected(@NonNull Runnable runnable) {
     this.lock();
 
     try {
@@ -68,7 +67,7 @@ class FunctionalLockImpl implements FunctionalLock {
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   @Override
   public Condition newCondition() {
     return this.lock.newCondition();
@@ -78,7 +77,7 @@ class FunctionalLockImpl implements FunctionalLock {
    * {@inheritDoc}
    */
   @Override
-  public boolean tryRunProtected(@Nonnull Runnable runnable) {
+  public boolean tryRunProtected(@NonNull Runnable runnable) {
     if (!this.tryLock()) {
       return false;
     }
@@ -96,8 +95,8 @@ class FunctionalLockImpl implements FunctionalLock {
    * {@inheritDoc}
    */
   @Override
-  public boolean tryRunProtected(@Nonnegative long time, @Nonnull TimeUnit timeUnit,
-      @Nonnull Runnable runnable) throws InterruptedException {
+  public boolean tryRunProtected(long time, @NonNull TimeUnit timeUnit, @NonNull Runnable runnable)
+      throws InterruptedException {
     if (!this.tryLock(time, timeUnit)) {
       return false;
     }
