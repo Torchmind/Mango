@@ -35,7 +35,7 @@ public interface FunctionalReadWriteLock extends ReadWriteLock {
    */
   @NonNull
   static FunctionalReadWriteLock wrap(@NonNull ReadWriteLock lock) {
-    return new FunctionalReadWriteLockImpl(lock);
+    return new DelegatingFunctionalReadWriteLock(lock);
   }
 
   /**

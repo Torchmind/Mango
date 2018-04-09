@@ -24,12 +24,12 @@ import java.util.concurrent.locks.ReadWriteLock;
  *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
-class FunctionalReadWriteLockImpl implements FunctionalReadWriteLock {
+public class DelegatingFunctionalReadWriteLock implements FunctionalReadWriteLock {
 
   private final FunctionalLock readLock;
   private final FunctionalLock writeLock;
 
-  FunctionalReadWriteLockImpl(@NonNull ReadWriteLock lock) {
+  public DelegatingFunctionalReadWriteLock(@NonNull ReadWriteLock lock) {
     this.readLock = FunctionalLock.wrap(lock.readLock());
     this.writeLock = FunctionalLock.wrap(lock.writeLock());
   }
