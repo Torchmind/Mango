@@ -16,10 +16,10 @@
  */
 package com.torchmind.mango.concurrency.lock;
 
+import java.util.concurrent.locks.ReadWriteLock;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.concurrent.locks.ReadWriteLock;
 
 /**
  * Provides a delegating smart read write lock implementation.
@@ -29,29 +29,30 @@ import java.util.concurrent.locks.ReadWriteLock;
 @Immutable
 @ThreadSafe
 class SmartReadWriteLockImpl implements SmartReadWriteLock {
-        private final SmartReadLock readLock;
-        private final SmartLock writeLock;
 
-        SmartReadWriteLockImpl(@Nonnull ReadWriteLock lock) {
-                this.readLock = SmartReadLock.wrap(lock.readLock());
-                this.writeLock = SmartLock.wrap(lock.writeLock());
-        }
+  private final SmartReadLock readLock;
+  private final SmartLock writeLock;
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public SmartReadLock readLock() {
-                return this.readLock;
-        }
+  SmartReadWriteLockImpl(@Nonnull ReadWriteLock lock) {
+    this.readLock = SmartReadLock.wrap(lock.readLock());
+    this.writeLock = SmartLock.wrap(lock.writeLock());
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public SmartLock writeLock() {
-                return this.writeLock;
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public SmartReadLock readLock() {
+    return this.readLock;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public SmartLock writeLock() {
+    return this.writeLock;
+  }
 }

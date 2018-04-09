@@ -15,76 +15,78 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-        <!-- Parent Artifact Information -->
-        <parent>
-                <groupId>com.torchmind.mango</groupId>
-                <artifactId>parent</artifactId>
-                <version>1.1-SNAPSHOT</version>
-        </parent>
+  <!-- Parent Artifact Information -->
+  <parent>
+    <groupId>com.torchmind.mango</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
 
-        <!-- Artifact Information -->
-        <artifactId>concurrency</artifactId>
-        <packaging>jar</packaging>
+  <!-- Artifact Information -->
+  <artifactId>concurrency</artifactId>
+  <packaging>jar</packaging>
 
-        <!-- Artifact Metadata -->
-        <name>Mango Concurrency</name>
-        <description>Provides a spoon full of syntax sugar for concurrent programming.</description>
-        <inceptionYear>2016</inceptionYear>
+  <!-- Artifact Metadata -->
+  <name>Mango Concurrency</name>
+  <description>Provides a spoon full of syntax sugar for concurrent programming.</description>
+  <inceptionYear>2016</inceptionYear>
 
-        <!-- Dependencies -->
-        <dependencies>
-                <!-- Java -->
-                <dependency>
-                        <groupId>com.google.code.findbugs</groupId>
-                        <artifactId>jsr305</artifactId>
-                </dependency>
+  <!-- Dependencies -->
+  <dependencies>
+    <!-- Java -->
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+    </dependency>
 
-                <!-- Test Dependencies -->
-                <dependency>
-                        <groupId>junit</groupId>
-                        <artifactId>junit</artifactId>
-                </dependency>
-                <dependency>
-                        <groupId>org.mockito</groupId>
-                        <artifactId>mockito-core</artifactId>
-                </dependency>
-        </dependencies>
+    <!-- Test Dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+    </dependency>
+  </dependencies>
 
-        <!-- Build Settings -->
-        <build>
-                <plugins>
-                        <!-- Java Compiler -->
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-compiler-plugin</artifactId>
-                        </plugin>
+  <!-- Build Settings -->
+  <build>
+    <plugins>
+      <!-- Java Compiler -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
 
-                        <!-- Manifest Generation -->
-                        <plugin>
-                                <groupId>org.apache.felix</groupId>
-                                <artifactId>maven-bundle-plugin</artifactId>
-                        </plugin>
+      <!-- Manifest Generation -->
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+      </plugin>
 
-                        <!-- Jar Creation -->
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-jar-plugin</artifactId>
-                        </plugin>
+      <!-- Jar Creation -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+      </plugin>
 
-                        <!-- Attach Sources -->
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-source-plugin</artifactId>
-                        </plugin>
+      <!-- Attach Sources -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+      </plugin>
 
-                        <!-- Attach JavaDoc -->
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-javadoc-plugin</artifactId>
-                        </plugin>
-                </plugins>
-        </build>
+      <!-- Attach JavaDoc -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>

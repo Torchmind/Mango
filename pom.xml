@@ -15,258 +15,260 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-        <!-- Artifact Information -->
+  <!-- Artifact Information -->
+  <groupId>com.torchmind.mango</groupId>
+  <artifactId>parent</artifactId>
+  <version>1.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <prerequisites>
+    <maven>3.3</maven>
+  </prerequisites>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <!-- Artifact Metadata -->
+  <name>Mango Parent</name>
+  <description>Provides utility components to Java applications.</description>
+  <url>https://github.com/Torchmind/Mango</url>
+  <inceptionYear>2016</inceptionYear>
+
+  <organization>
+    <name>Torchmind</name>
+    <url>https://www.torchmind.com</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <name>Johannes Donath</name>
+      <timezone>Europe/Berlin</timezone>
+      <email>johannesd@torchmind.com</email>
+      <url>https://www.johannes-donath.com</url>
+
+      <organization>Torchmind</organization>
+      <organizationUrl>https://www.torchmind.com</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <tag>master</tag>
+    <url>https://github.com/Torchmind/Mango</url>
+    <connection>scm:git:git@github.com:/Torchmind/Mango.git</connection>
+    <developerConnection>scm:git:git@github.com:/Torchmind/Mango.git</developerConnection>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/Torchmind/Mango/issues</url>
+  </issueManagement>
+
+  <ciManagement>
+    <system>Atlassian Bamboo</system>
+    <url>https://www.torchmind.com/ci/browse/MANGO</url>
+  </ciManagement>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+
+  <!-- Dependencies -->
+  <dependencyManagement>
+    <dependencies>
+      <!-- Modules -->
+      <dependency>
         <groupId>com.torchmind.mango</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>mango</artifactId>
         <version>1.1-SNAPSHOT</version>
-        <packaging>pom</packaging>
+      </dependency>
 
-        <prerequisites>
-                <maven>3.3</maven>
-        </prerequisites>
+      <dependency>
+        <groupId>com.torchmind.mango</groupId>
+        <artifactId>concurrency</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.torchmind.mango</groupId>
+        <artifactId>observable</artifactId>
+        <version>1.0</version>
+      </dependency>
 
-        <properties>
-                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        </properties>
+      <!-- Java -->
+      <dependency>
+        <groupId>com.google.code.findbugs</groupId>
+        <artifactId>jsr305</artifactId>
+        <version>3.0.1</version>
+        <scope>provided</scope>
+      </dependency>
 
-        <licenses>
-                <license>
-                        <name>Apache License 2.0</name>
-                        <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-                </license>
-        </licenses>
+      <!-- Test Dependencies -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>2.0.41-beta</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-        <!-- Artifact Metadata -->
-        <name>Mango Parent</name>
-        <description>Provides utility components to Java applications.</description>
-        <url>https://github.com/Torchmind/Mango</url>
-        <inceptionYear>2016</inceptionYear>
+  <!-- Build Settings -->
+  <build>
+    <finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
+    <defaultGoal>clean install</defaultGoal>
 
-        <organization>
-                <name>Torchmind</name>
-                <url>https://www.torchmind.com</url>
-        </organization>
+    <pluginManagement>
+      <plugins>
+        <!-- Java Compiler -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.5</version>
 
-        <developers>
-                <developer>
-                        <name>Johannes Donath</name>
-                        <timezone>Europe/Berlin</timezone>
-                        <email>johannesd@torchmind.com</email>
-                        <url>https://www.johannes-donath.com</url>
+          <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+          </configuration>
+        </plugin>
 
-                        <organization>Torchmind</organization>
-                        <organizationUrl>https://www.torchmind.com</organizationUrl>
-                </developer>
-        </developers>
+        <!-- Manifest Generation -->
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>3.0.1</version>
 
-        <scm>
-                <tag>master</tag>
-                <url>https://github.com/Torchmind/Mango</url>
-                <connection>scm:git:git@github.com:/Torchmind/Mango.git</connection>
-                <developerConnection>scm:git:git@github.com:/Torchmind/Mango.git</developerConnection>
-        </scm>
+          <executions>
+            <execution>
+              <id>bundle-manifest</id>
+              <phase>process-classes</phase>
 
-        <issueManagement>
-                <system>GitHub</system>
-                <url>https://github.com/Torchmind/Mango/issues</url>
-        </issueManagement>
+              <goals>
+                <goal>manifest</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
 
-        <ciManagement>
-                <system>Atlassian Bamboo</system>
-                <url>https://www.torchmind.com/ci/browse/MANGO</url>
-        </ciManagement>
+        <!-- Jar Creation -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.6</version>
 
-        <distributionManagement>
-                <snapshotRepository>
-                        <id>ossrh</id>
-                        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-                <repository>
-                        <id>ossrh</id>
-                        <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-        </distributionManagement>
+          <configuration>
+            <archive>
+              <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
 
-        <!-- Dependencies -->
-        <dependencyManagement>
-                <dependencies>
-                        <!-- Modules -->
-                        <dependency>
-                                <groupId>com.torchmind.mango</groupId>
-                                <artifactId>mango</artifactId>
-                                <version>1.1-SNAPSHOT</version>
-                        </dependency>
+              <addMavenDescriptor>true</addMavenDescriptor>
+              <compress>true</compress>
+              <index>true</index>
+            </archive>
+          </configuration>
+        </plugin>
 
-                        <dependency>
-                                <groupId>com.torchmind.mango</groupId>
-                                <artifactId>concurrency</artifactId>
-                                <version>1.1-SNAPSHOT</version>
-                        </dependency>
-                        <dependency>
-                                <groupId>com.torchmind.mango</groupId>
-                                <artifactId>observable</artifactId>
-                                <version>1.0</version>
-                        </dependency>
+        <!-- Attach Sources -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.4</version>
 
-                        <!-- Java -->
-                        <dependency>
-                                <groupId>com.google.code.findbugs</groupId>
-                                <artifactId>jsr305</artifactId>
-                                <version>3.0.1</version>
-                                <scope>provided</scope>
-                        </dependency>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
 
-                        <!-- Test Dependencies -->
-                        <dependency>
-                                <groupId>junit</groupId>
-                                <artifactId>junit</artifactId>
-                                <version>4.12</version>
-                                <scope>test</scope>
-                        </dependency>
-                        <dependency>
-                                <groupId>org.mockito</groupId>
-                                <artifactId>mockito-core</artifactId>
-                                <version>2.0.41-beta</version>
-                                <scope>test</scope>
-                        </dependency>
-                </dependencies>
-        </dependencyManagement>
+              <goals>
+                <goal>jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
 
-        <!-- Build Settings -->
-        <build>
-                <finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
-                <defaultGoal>clean install</defaultGoal>
+        <!-- Attach JavaDoc -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.10.3</version>
 
-                <pluginManagement>
-                        <plugins>
-                                <!-- Java Compiler -->
-                                <plugin>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-compiler-plugin</artifactId>
-                                        <version>3.5</version>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
 
-                                        <configuration>
-                                                <source>1.8</source>
-                                                <target>1.8</target>
-                                        </configuration>
-                                </plugin>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
 
-                                <!-- Manifest Generation -->
-                                <plugin>
-                                        <groupId>org.apache.felix</groupId>
-                                        <artifactId>maven-bundle-plugin</artifactId>
-                                        <version>3.0.1</version>
+        <!-- GPG Signatures -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>1.5</version>
 
-                                        <executions>
-                                                <execution>
-                                                        <id>bundle-manifest</id>
-                                                        <phase>process-classes</phase>
+          <executions>
+            <execution>
+              <id>sign-artifacts</id>
+              <phase>verify</phase>
 
-                                                        <goals>
-                                                                <goal>manifest</goal>
-                                                        </goals>
-                                                </execution>
-                                        </executions>
-                                </plugin>
+              <goals>
+                <goal>sign</goal>
+              </goals>
+            </execution>
+          </executions>
 
-                                <!-- Jar Creation -->
-                                <plugin>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-jar-plugin</artifactId>
-                                        <version>2.6</version>
+          <configuration>
+            <keyname>35578E37</keyname>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
-                                        <configuration>
-                                                <archive>
-                                                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+  <modules>
+    <module>all</module>
+    <module>concurrency</module>
+    <module>observable</module>
+  </modules>
 
-                                                        <addMavenDescriptor>true</addMavenDescriptor>
-                                                        <compress>true</compress>
-                                                        <index>true</index>
-                                                </archive>
-                                        </configuration>
-                                </plugin>
+  <!-- Deployment Profiles -->
+  <profiles>
+    <profile>
+      <id>deployment</id>
 
-                                <!-- Attach Sources -->
-                                <plugin>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-source-plugin</artifactId>
-                                        <version>2.4</version>
-
-                                        <executions>
-                                                <execution>
-                                                        <id>attach-sources</id>
-
-                                                        <goals>
-                                                                <goal>jar-no-fork</goal>
-                                                        </goals>
-                                                </execution>
-                                        </executions>
-                                </plugin>
-
-                                <!-- Attach JavaDoc -->
-                                <plugin>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-javadoc-plugin</artifactId>
-                                        <version>2.10.3</version>
-
-                                        <executions>
-                                                <execution>
-                                                        <id>attach-javadocs</id>
-
-                                                        <goals>
-                                                                <goal>jar</goal>
-                                                        </goals>
-                                                </execution>
-                                        </executions>
-                                </plugin>
-
-                                <!-- GPG Signatures -->
-                                <plugin>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-gpg-plugin</artifactId>
-                                        <version>1.5</version>
-
-                                        <executions>
-                                                <execution>
-                                                        <id>sign-artifacts</id>
-                                                        <phase>verify</phase>
-
-                                                        <goals>
-                                                                <goal>sign</goal>
-                                                        </goals>
-                                                </execution>
-                                        </executions>
-
-                                        <configuration>
-                                                <keyname>35578E37</keyname>
-                                        </configuration>
-                                </plugin>
-                        </plugins>
-                </pluginManagement>
-        </build>
-
-        <modules>
-                <module>all</module>
-                <module>concurrency</module>
-                <module>observable</module>
-        </modules>
-
-        <!-- Deployment Profiles -->
-        <profiles>
-                <profile>
-                        <id>deployment</id>
-
-                        <build>
-                                <plugins>
-                                        <plugin>
-                                                <groupId>org.apache.maven.plugins</groupId>
-                                                <artifactId>maven-gpg-plugin</artifactId>
-                                        </plugin>
-                                </plugins>
-                        </build>
-                </profile>
-        </profiles>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

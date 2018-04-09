@@ -16,13 +16,14 @@
  */
 package com.torchmind.mango.concurrency.lock;
 
+import java.util.concurrent.locks.ReadWriteLock;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.concurrent.locks.ReadWriteLock;
 
 /**
- * Provides a simple ReadWriteLock extension which utilizes the smart extensions provided by this package.
+ * Provides a simple ReadWriteLock extension which utilizes the smart extensions provided by this
+ * package.
  *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
@@ -30,28 +31,28 @@ import java.util.concurrent.locks.ReadWriteLock;
 @ThreadSafe
 public interface SmartReadWriteLock extends ReadWriteLock {
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        SmartReadLock readLock();
+  /**
+   * Creates a new smart read write lock by wrapping an existing instance.
+   *
+   * @param lock a lock.
+   * @return a wrapped smart read write lock.
+   */
+  @Nonnull
+  static SmartReadWriteLock wrap(@Nonnull ReadWriteLock lock) {
+    return new SmartReadWriteLockImpl(lock);
+  }
 
-        /**
-         * Creates a new smart read write lock by wrapping an existing instance.
-         *
-         * @param lock a lock.
-         * @return a wrapped smart read write lock.
-         */
-        @Nonnull
-        static SmartReadWriteLock wrap(@Nonnull ReadWriteLock lock) {
-                return new SmartReadWriteLockImpl(lock);
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  SmartReadLock readLock();
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        SmartLock writeLock();
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  SmartLock writeLock();
 }

@@ -16,18 +16,19 @@
  */
 package com.torchmind.mango.concurrency.lock;
 
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.function.Supplier;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
-import java.util.function.Supplier;
 
 /**
- * Provides a few extensions to Java's locks to improve code quality when working with blocking structures.
+ * Provides a few extensions to Java's locks to improve code quality when working with blocking
+ * structures.
  *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
@@ -35,91 +36,88 @@ import java.util.function.Supplier;
 @ThreadSafe
 public interface SmartReadLock extends SmartLock {
 
-        /**
-         * Acquires the lock, retrieves a value and releases the lock.
-         *
-         * @param supplier a supplier.
-         * @param <R>      a value type.
-         * @return a value.
-         *
-         * @see #lock() for a more specific documentation on the locking process.
-         * @see #unlock() for a more specific documentation on the unlocking process.
-         */
-        <R> R get(@Nonnull Supplier<R> supplier);
+  /**
+   * Creates a smart read lock instance by wrapping an existing lock.
+   *
+   * @param lock a lock.
+   * @return a wrapped read smart lock.
+   */
+  @Nonnull
+  static SmartReadLock wrap(@Nonnull Lock lock) {
+    return new SmartReadLockImpl(lock);
+  }
 
-        /**
-         * Acquires the lock, retrieves a value and releases the lock.
-         *
-         * @param supplier a supplier.
-         * @param <R>      a value type.
-         * @return a value.
-         *
-         * @throws InterruptedException when the thread is interrupted when attempting to acquire the lock.
-         * @see #lockInterruptibly() for a more specific documentation on the locking process.
-         * @see #unlock() for a more specific documentation on the unlocking process.
-         */
-        <R> R getInterruptibly(@Nonnull Supplier<R> supplier) throws InterruptedException;
+  /**
+   * Acquires the lock, retrieves a value and releases the lock.
+   *
+   * @param supplier a supplier.
+   * @param <R> a value type.
+   * @return a value.
+   * @see #lock() for a more specific documentation on the locking process.
+   * @see #unlock() for a more specific documentation on the unlocking process.
+   */
+  <R> R get(@Nonnull Supplier<R> supplier);
 
-        /**
-         * Tries to acquire the lock, retrieve a value and release the lock.
-         *
-         * @param supplier a supplier.
-         * @param <R>      a value type.
-         * @return a value.
-         *
-         * @see #tryLock() for a more specific documentation on the locking process.
-         * @see #unlock() for a more specific documentation on the unlocking process.
-         */
-        @Nonnull
-        <R> Optional<R> tryGet(@Nonnull Supplier<R> supplier);
+  /**
+   * Acquires the lock, retrieves a value and releases the lock.
+   *
+   * @param supplier a supplier.
+   * @param <R> a value type.
+   * @return a value.
+   * @throws InterruptedException when the thread is interrupted when attempting to acquire the
+   * lock.
+   * @see #lockInterruptibly() for a more specific documentation on the locking process.
+   * @see #unlock() for a more specific documentation on the unlocking process.
+   */
+  <R> R getInterruptibly(@Nonnull Supplier<R> supplier) throws InterruptedException;
 
-        /**
-         * Tries to acquire the lock, retrieve a value and release the lock while ensuring the specified amount of time
-         * is not exceeded when attempting to acquire the lock.
-         *
-         * @param time     an amount of time to wait for holding threads to release their locks.
-         * @param timeUnit a time unit.
-         * @param supplier a supplier.
-         * @param <R>      a value type.
-         * @return a value.
-         *
-         * @throws InterruptedException when the thread is interrupted while attempting to acquire the lock.
-         * @see #tryLock(long, TimeUnit) for a more specific documentation on the locking process.
-         * @see #unlock() for a more specific documentation on the unlocking process.
-         */
-        @Nonnull
-        <R> Optional<R> tryGet(@Nonnegative long time, @Nonnull TimeUnit timeUnit, @Nonnull Supplier<R> supplier) throws InterruptedException;
+  /**
+   * Tries to acquire the lock, retrieve a value and release the lock.
+   *
+   * @param supplier a supplier.
+   * @param <R> a value type.
+   * @return a value.
+   * @see #tryLock() for a more specific documentation on the locking process.
+   * @see #unlock() for a more specific documentation on the unlocking process.
+   */
+  @Nonnull
+  <R> Optional<R> tryGet(@Nonnull Supplier<R> supplier);
 
-        /**
-         * Releases the lock and returns a passed value.
-         *
-         * @param value a return value.
-         * @param <R>   a return value type.
-         * @return a value.
-         *
-         * @see #unlock() for a more specific documentation on the unlocking process.
-         */
-        <R> R unlock(@Nullable R value);
+  /**
+   * Tries to acquire the lock, retrieve a value and release the lock while ensuring the specified
+   * amount of time is not exceeded when attempting to acquire the lock.
+   *
+   * @param time an amount of time to wait for holding threads to release their locks.
+   * @param timeUnit a time unit.
+   * @param supplier a supplier.
+   * @param <R> a value type.
+   * @return a value.
+   * @throws InterruptedException when the thread is interrupted while attempting to acquire the
+   * lock.
+   * @see #tryLock(long, TimeUnit) for a more specific documentation on the locking process.
+   * @see #unlock() for a more specific documentation on the unlocking process.
+   */
+  @Nonnull
+  <R> Optional<R> tryGet(@Nonnegative long time, @Nonnull TimeUnit timeUnit,
+      @Nonnull Supplier<R> supplier) throws InterruptedException;
 
-        /**
-         * Releases the lock and returns a value generated by the specified supplier.
-         *
-         * @param supplier a supplier.
-         * @param <R>      a return value type.
-         * @return a value.
-         *
-         * @see #unlock() for a more specific documentation on the unlocking process.
-         */
-        <R> R unlock(@Nonnull Supplier<R> supplier);
+  /**
+   * Releases the lock and returns a passed value.
+   *
+   * @param value a return value.
+   * @param <R> a return value type.
+   * @return a value.
+   * @see #unlock() for a more specific documentation on the unlocking process.
+   */
+  <R> R unlock(@Nullable R value);
 
-        /**
-         * Creates a smart read lock instance by wrapping an existing lock.
-         *
-         * @param lock a lock.
-         * @return a wrapped read smart lock.
-         */
-        @Nonnull
-        static SmartReadLock wrap(@Nonnull Lock lock) {
-                return new SmartReadLockImpl(lock);
-        }
+  /**
+   * Releases the lock and returns a value generated by the specified supplier.
+   *
+   * @param supplier a supplier.
+   * @param <R> a return value type.
+   * @return a value.
+   * @see #unlock() for a more specific documentation on the unlocking process.
+   */
+  <R> R unlock(@Nonnull Supplier<R> supplier);
 }

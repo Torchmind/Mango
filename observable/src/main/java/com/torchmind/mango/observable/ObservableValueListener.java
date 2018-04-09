@@ -28,12 +28,12 @@ import javax.annotation.Nullable;
 @FunctionalInterface
 public interface ObservableValueListener<T> {
 
-        /**
-         * Handles changes to observed values.
-         *
-         * @param observable the observable triggering the change notification.
-         * @param oldValue   the old value (if any).
-         * @param newValue   the new value (if any).
-         */
-        void change(@Nonnull ObservableValue<T> observable, @Nullable T oldValue, @Nullable T newValue);
+  /**
+   * Handles changes to observed values.
+   *
+   * @param observable the observable triggering the change notification.
+   * @param oldValue the old value (if any).
+   * @param newValue the new value (if any).
+   */
+  void change(@Nonnull ObservableValue<T> observable, @Nullable T oldValue, @Nullable T newValue);
 }

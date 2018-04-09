@@ -26,34 +26,34 @@ import javax.annotation.Nullable;
  */
 public class ObservableByteProperty extends AbstractObservableProperty<Byte> {
 
-        public ObservableByteProperty(@Nullable Byte value) {
-                super(value);
-        }
+  public ObservableByteProperty(@Nullable Byte value) {
+    super(value);
+  }
 
-        /**
-         * Retrieves the property value.
-         *
-         * @return a representation of the currently stored property value.
-         */
-        public byte get() {
-                Byte value = this.getValue();
+  /**
+   * Retrieves the property value.
+   *
+   * @return a representation of the currently stored property value.
+   */
+  public byte get() {
+    Byte value = this.getValue();
 
-                if (value == null) {
-                        return 0;
-                }
+    if (value == null) {
+      return 0;
+    }
 
-                return value;
-        }
+    return value;
+  }
 
-        /**
-         * Sets the property value.
-         *
-         * @param value a new value.
-         * @return a reference to this property.
-         */
-        @Nonnull
-        public ObservableByteProperty set(byte value) {
-                this.setValue(value);
-                return this;
-        }
+  /**
+   * Sets the property value.
+   *
+   * @param value a new value.
+   * @return a reference to this property.
+   */
+  @Nonnull
+  public ObservableByteProperty set(byte value) {
+    this.setValue(value);
+    return this;
+  }
 }

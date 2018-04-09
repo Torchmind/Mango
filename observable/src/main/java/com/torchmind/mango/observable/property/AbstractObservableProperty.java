@@ -18,228 +18,231 @@ package com.torchmind.mango.observable.property;
 
 import com.torchmind.mango.observable.AbstractObservableValue;
 import com.torchmind.mango.observable.ObservableValueListener;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Deque;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.function.Consumer;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
- * Provides an abstract observable property implementation for simplified creation of observable property types.
+ * Provides an abstract observable property implementation for simplified creation of observable
+ * property types.
  *
  * @author Johannes Donath
  */
-abstract class AbstractObservableProperty<T> extends AbstractObservableValue<T> implements ObservableProperty<T> {
-        private boolean bidirectional = false;
-        private ObservableProperty<T> boundProperty = null;
-        private final Deque<ObservablePropertyListener<T>> listenerQueue = new ConcurrentLinkedDeque<>();
-        private T value;
-        private final ObservablePropertyListener<T> propertyListener = (ob, o, n) -> {
-                this.value = n;
-                this.notify(o, n);
-        };
+abstract class AbstractObservableProperty<T> extends AbstractObservableValue<T> implements
+    ObservableProperty<T> {
 
-        public AbstractObservableProperty(@Nullable T value) {
-                this.setValue(value);
-        }
+  private final Deque<ObservablePropertyListener<T>> listenerQueue = new ConcurrentLinkedDeque<>();
+  private boolean bidirectional = false;
+  private ObservableProperty<T> boundProperty = null;
+  private T value;
+  private final ObservablePropertyListener<T> propertyListener = (ob, o, n) -> {
+    this.value = n;
+    this.notify(o, n);
+  };
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public ObservableProperty<T> addListener(@Nonnull ObservablePropertyListener<T> listener) {
-                this.listenerQueue.push(listener);
-                return this;
-        }
+  public AbstractObservableProperty(@Nullable T value) {
+    this.setValue(value);
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public ObservableProperty<T> addListener(@Nonnull ObservableValueListener<T> listener) {
-                super.addListener(listener);
-                return this;
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ObservableProperty<T> addListener(@Nonnull ObservablePropertyListener<T> listener) {
+    this.listenerQueue.push(listener);
+    return this;
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public ObservableProperty<T> bindTo(@Nonnull ObservableProperty<T> property) {
-                return this.bindTo(property, false);
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ObservableProperty<T> addListener(@Nonnull ObservableValueListener<T> listener) {
+    super.addListener(listener);
+    return this;
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        private ObservableProperty<T> bindTo(@Nonnull ObservableProperty<T> property, boolean bidirectional) {
-                this.boundProperty = property;
-                this.bidirectional = bidirectional;
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ObservableProperty<T> bindTo(@Nonnull ObservableProperty<T> property) {
+    return this.bindTo(property, false);
+  }
 
-                // append a listener to the bound property to ensure our values are locally updated in case the
-                // property is unbound later on
-                // also ensure the initial value is copied over
-                property.addListener(this.propertyListener);
-                this.propertyListener.change(property, null, property.getValue());
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  private ObservableProperty<T> bindTo(@Nonnull ObservableProperty<T> property,
+      boolean bidirectional) {
+    this.boundProperty = property;
+    this.bidirectional = bidirectional;
 
-                return this;
-        }
+    // append a listener to the bound property to ensure our values are locally updated in case the
+    // property is unbound later on
+    // also ensure the initial value is copied over
+    property.addListener(this.propertyListener);
+    this.propertyListener.change(property, null, property.getValue());
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public ObservableProperty<T> bindToBidirectionally(@Nonnull ObservableProperty<T> property) {
-                return this.bindTo(property, true);
-        }
+    return this;
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nullable
-        @Override
-        public T getValue() {
-                if (this.boundProperty == null) {
-                        return this.value;
-                }
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ObservableProperty<T> bindToBidirectionally(@Nonnull ObservableProperty<T> property) {
+    return this.bindTo(property, true);
+  }
 
-                return this.boundProperty.getValue();
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Nullable
+  @Override
+  public T getValue() {
+    if (this.boundProperty == null) {
+      return this.value;
+    }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean hasBidirectionalBinding() {
-                return this.isBound() && this.bidirectional;
-        }
+    return this.boundProperty.getValue();
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean isBound() {
-                return this.boundProperty != null;
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean hasBidirectionalBinding() {
+    return this.isBound() && this.bidirectional;
+  }
 
-        @Nonnull
-        @Override
-        public ObservableProperty<T> isBound(@Nonnull Consumer<ObservableProperty<T>> consumer) {
-                Optional.ofNullable(this.boundProperty).ifPresent(consumer);
-                return this;
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isBound() {
+    return this.boundProperty != null;
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean isBoundTo(@Nonnull ObservableProperty<T> property) {
-                return this.boundProperty == property;
-        }
+  @Nonnull
+  @Override
+  public ObservableProperty<T> isBound(@Nonnull Consumer<ObservableProperty<T>> consumer) {
+    Optional.ofNullable(this.boundProperty).ifPresent(consumer);
+    return this;
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        protected void notify(@Nullable T oldValue, @Nullable T newValue) {
-                super.notify(oldValue, newValue);
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isBoundTo(@Nonnull ObservableProperty<T> property) {
+    return this.boundProperty == property;
+  }
 
-                this.listenerQueue.forEach((l) -> l.change(this, oldValue, newValue));
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void notify(@Nullable T oldValue, @Nullable T newValue) {
+    super.notify(oldValue, newValue);
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public ObservableProperty<T> removeListener(@Nonnull ObservablePropertyListener<T> listener) {
-                this.listenerQueue.remove(listener);
-                return this;
-        }
+    this.listenerQueue.forEach((l) -> l.change(this, oldValue, newValue));
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public ObservableProperty<T> removeListener(@Nonnull ObservableValueListener<T> listener) {
-                super.removeListener(listener);
-                return this;
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ObservableProperty<T> removeListener(@Nonnull ObservablePropertyListener<T> listener) {
+    this.listenerQueue.remove(listener);
+    return this;
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public ObservableProperty<T> setValue(@Nullable T value) {
-                // handle different binding types first as they directly affect the way updates are handled internally
-                // 1) A unidirectional binding was created and thus all modifications to this value will be rejected, or
-                // 2) a bidirectional binding was created and thus all modifications are forwarded
-                if (this.isBound()) {
-                        if (this.hasBidirectionalBinding()) {
-                                this.boundProperty.setValue(value);
-                                return this;
-                        }
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ObservableProperty<T> removeListener(@Nonnull ObservableValueListener<T> listener) {
+    super.removeListener(listener);
+    return this;
+  }
 
-                        throw new IllegalStateException("Cannot change the value of a bound property directly");
-                }
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ObservableProperty<T> setValue(@Nullable T value) {
+    // handle different binding types first as they directly affect the way updates are handled internally
+    // 1) A unidirectional binding was created and thus all modifications to this value will be rejected, or
+    // 2) a bidirectional binding was created and thus all modifications are forwarded
+    if (this.isBound()) {
+      if (this.hasBidirectionalBinding()) {
+        this.boundProperty.setValue(value);
+        return this;
+      }
 
-                // before actually applying our value update in local memory we'll have to notify all of our listeners
-                // of this update
-                this.notify(this.value, value);
+      throw new IllegalStateException("Cannot change the value of a bound property directly");
+    }
 
-                // perform actual update in memory
-                this.value = value;
-                return this;
-        }
+    // before actually applying our value update in local memory we'll have to notify all of our listeners
+    // of this update
+    this.notify(this.value, value);
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public ObservableProperty<T> unbind() {
-                // ensure we are un-subscribed from the bound property as we do not intend to update our local value
-                // any more
-                this.boundProperty.removeListener(this.propertyListener);
+    // perform actual update in memory
+    this.value = value;
+    return this;
+  }
 
-                this.boundProperty = null;
-                this.bidirectional = false;
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ObservableProperty<T> unbind() {
+    // ensure we are un-subscribed from the bound property as we do not intend to update our local value
+    // any more
+    this.boundProperty.removeListener(this.propertyListener);
 
-                return this;
-        }
+    this.boundProperty = null;
+    this.bidirectional = false;
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean equals(Object o) {
-                if (this == o) {
-                        return true;
-                }
+    return this;
+  }
 
-                if (!(o instanceof AbstractObservableProperty)) {
-                        return false;
-                }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
 
-                AbstractObservableProperty<?> that = (AbstractObservableProperty<?>) o;
-                return Objects.equals(this.value, that.value);
-        }
+    if (!(o instanceof AbstractObservableProperty)) {
+      return false;
+    }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int hashCode() {
-                return Objects.hash(value);
-        }
+    AbstractObservableProperty<?> that = (AbstractObservableProperty<?>) o;
+    return Objects.equals(this.value, that.value);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(value);
+  }
 }

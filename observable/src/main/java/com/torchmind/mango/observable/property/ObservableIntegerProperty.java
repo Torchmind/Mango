@@ -26,34 +26,34 @@ import javax.annotation.Nullable;
  */
 public class ObservableIntegerProperty extends AbstractObservableProperty<Integer> {
 
-        public ObservableIntegerProperty(@Nullable Integer value) {
-                super(value);
-        }
+  public ObservableIntegerProperty(@Nullable Integer value) {
+    super(value);
+  }
 
-        /**
-         * Retrieves the property value.
-         *
-         * @return a representation of the currently stored property value.
-         */
-        public int get() {
-                Integer value = this.getValue();
+  /**
+   * Retrieves the property value.
+   *
+   * @return a representation of the currently stored property value.
+   */
+  public int get() {
+    Integer value = this.getValue();
 
-                if (value == null) {
-                        return 0;
-                }
+    if (value == null) {
+      return 0;
+    }
 
-                return value;
-        }
+    return value;
+  }
 
-        /**
-         * Sets the property value.
-         *
-         * @param value a new value.
-         * @return a reference to this property.
-         */
-        @Nonnull
-        public ObservableIntegerProperty set(int value) {
-                this.setValue(value);
-                return this;
-        }
+  /**
+   * Sets the property value.
+   *
+   * @param value a new value.
+   * @return a reference to this property.
+   */
+  @Nonnull
+  public ObservableIntegerProperty set(int value) {
+    this.setValue(value);
+    return this;
+  }
 }

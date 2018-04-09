@@ -16,50 +16,51 @@
  */
 package com.torchmind.mango.observable;
 
+import java.util.Deque;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.Deque;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 /**
- * Provides an abstract observable value implementation which provides implementations for adding and removing of
- * listeners as well as calling of such listeners.
+ * Provides an abstract observable value implementation which provides implementations for adding
+ * and removing of listeners as well as calling of such listeners.
  *
  * @param <T> the represented value type.
  * @author Johannes Donath
  */
 @ThreadSafe
 public abstract class AbstractObservableValue<T> implements ObservableValue<T> {
-        private final Deque<ObservableValueListener<T>> listenerQueue = new ConcurrentLinkedDeque<>();
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public ObservableValue<T> addListener(@Nonnull ObservableValueListener<T> listener) {
-                this.listenerQueue.push(listener);
-                return this;
-        }
+  private final Deque<ObservableValueListener<T>> listenerQueue = new ConcurrentLinkedDeque<>();
 
-        /**
-         * Notifies all registered listeners about an update.
-         *
-         * @param oldValue the previous value.
-         * @param newValue the new value.
-         */
-        protected void notify(@Nullable T oldValue, @Nullable T newValue) {
-                this.listenerQueue.forEach((l) -> l.change(this, oldValue, newValue));
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ObservableValue<T> addListener(@Nonnull ObservableValueListener<T> listener) {
+    this.listenerQueue.push(listener);
+    return this;
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public ObservableValue<T> removeListener(@Nonnull ObservableValueListener<T> listener) {
-                this.listenerQueue.remove(listener);
-                return this;
-        }
+  /**
+   * Notifies all registered listeners about an update.
+   *
+   * @param oldValue the previous value.
+   * @param newValue the new value.
+   */
+  protected void notify(@Nullable T oldValue, @Nullable T newValue) {
+    this.listenerQueue.forEach((l) -> l.change(this, oldValue, newValue));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public ObservableValue<T> removeListener(@Nonnull ObservableValueListener<T> listener) {
+    this.listenerQueue.remove(listener);
+    return this;
+  }
 }

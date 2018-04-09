@@ -16,11 +16,11 @@
  */
 package com.torchmind.mango.concurrency.lock;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 
 /**
  * Provides a delegating smart lock implementation.
@@ -28,122 +28,124 @@ import java.util.concurrent.locks.Lock;
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
 class SmartLockImpl implements SmartLock {
-        private final Lock lock;
 
-        SmartLockImpl(@Nonnull Lock lock) {
-                this.lock = lock;
-        }
+  private final Lock lock;
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void execute(@Nonnull Runnable runnable) {
-                this.lock();
+  SmartLockImpl(@Nonnull Lock lock) {
+    this.lock = lock;
+  }
 
-                try {
-                        runnable.run();
-                } finally {
-                        this.unlock();
-                }
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void execute(@Nonnull Runnable runnable) {
+    this.lock();
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void executeInterruptibly(@Nonnull Runnable runnable) throws InterruptedException {
-                this.lockInterruptibly();
+    try {
+      runnable.run();
+    } finally {
+      this.unlock();
+    }
+  }
 
-                try {
-                        runnable.run();
-                } finally {
-                        this.unlock();
-                }
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void executeInterruptibly(@Nonnull Runnable runnable) throws InterruptedException {
+    this.lockInterruptibly();
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void lock() {
-                this.lock.lock();
-        }
+    try {
+      runnable.run();
+    } finally {
+      this.unlock();
+    }
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void lockInterruptibly() throws InterruptedException {
-                this.lock.lockInterruptibly();
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void lock() {
+    this.lock.lock();
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Nonnull
-        @Override
-        public Condition newCondition() {
-                return this.lock.newCondition();
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void lockInterruptibly() throws InterruptedException {
+    this.lock.lockInterruptibly();
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean tryExecute(@Nonnull Runnable runnable) {
-                if (!this.tryLock()) {
-                        return false;
-                }
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public Condition newCondition() {
+    return this.lock.newCondition();
+  }
 
-                try {
-                        runnable.run();
-                } finally {
-                        this.unlock();
-                }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean tryExecute(@Nonnull Runnable runnable) {
+    if (!this.tryLock()) {
+      return false;
+    }
 
-                return true;
-        }
+    try {
+      runnable.run();
+    } finally {
+      this.unlock();
+    }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean tryExecute(@Nonnegative long time, @Nonnull TimeUnit timeUnit, @Nonnull Runnable runnable) throws InterruptedException {
-                if (!this.tryLock(time, timeUnit)) {
-                        return false;
-                }
+    return true;
+  }
 
-                try {
-                        runnable.run();
-                } finally {
-                        this.unlock();
-                }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean tryExecute(@Nonnegative long time, @Nonnull TimeUnit timeUnit,
+      @Nonnull Runnable runnable) throws InterruptedException {
+    if (!this.tryLock(time, timeUnit)) {
+      return false;
+    }
 
-                return true;
-        }
+    try {
+      runnable.run();
+    } finally {
+      this.unlock();
+    }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean tryLock() {
-                return this.lock.tryLock();
-        }
+    return true;
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
-                return this.lock.tryLock(time, unit);
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean tryLock() {
+    return this.lock.tryLock();
+  }
 
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void unlock() {
-                this.lock.unlock();
-        }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+    return this.lock.tryLock(time, unit);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void unlock() {
+    this.lock.unlock();
+  }
 }

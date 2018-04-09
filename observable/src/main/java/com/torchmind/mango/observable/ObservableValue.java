@@ -26,21 +26,21 @@ import javax.annotation.Nonnull;
  */
 public interface ObservableValue<T> {
 
-        /**
-         * Appends a new listener to the queue of listeners.
-         *
-         * @param listener the listener instance to append.
-         * @return a reference to this observable value.
-         */
-        @Nonnull
-        ObservableValue<T> addListener(@Nonnull ObservableValueListener<T> listener);
+  /**
+   * Appends a new listener to the queue of listeners.
+   *
+   * @param listener the listener instance to append.
+   * @return a reference to this observable value.
+   */
+  @Nonnull
+  ObservableValue<T> addListener(@Nonnull ObservableValueListener<T> listener);
 
-        /**
-         * Removes a new listener from the queue of listeners.
-         *
-         * @param listener the listener instance to remove.
-         * @return a reference to this observable value.
-         */
-        @Nonnull
-        ObservableValue<T> removeListener(@Nonnull ObservableValueListener<T> listener);
+  /**
+   * Removes a new listener from the queue of listeners.
+   *
+   * @param listener the listener instance to remove.
+   * @return a reference to this observable value.
+   */
+  @Nonnull
+  ObservableValue<T> removeListener(@Nonnull ObservableValueListener<T> listener);
 }

@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
  */
 public class ObservableObjectProperty<T> extends AbstractObservableProperty<T> {
 
-        public ObservableObjectProperty(@Nullable T value) {
-                super(value);
-        }
+  public ObservableObjectProperty(@Nullable T value) {
+    super(value);
+  }
 }

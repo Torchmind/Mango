@@ -26,34 +26,34 @@ import javax.annotation.Nullable;
  */
 public class ObservableShortProperty extends AbstractObservableProperty<Short> {
 
-        public ObservableShortProperty(@Nullable Short value) {
-                super(value);
-        }
+  public ObservableShortProperty(@Nullable Short value) {
+    super(value);
+  }
 
-        /**
-         * Retrieves the property value.
-         *
-         * @return a representation of the currently stored property value.
-         */
-        public short get() {
-                Short value = this.getValue();
+  /**
+   * Retrieves the property value.
+   *
+   * @return a representation of the currently stored property value.
+   */
+  public short get() {
+    Short value = this.getValue();
 
-                if (value == null) {
-                        return 0;
-                }
+    if (value == null) {
+      return 0;
+    }
 
-                return value;
-        }
+    return value;
+  }
 
-        /**
-         * Sets the property value.
-         *
-         * @param value a new value.
-         * @return a reference to this property.
-         */
-        @Nonnull
-        public ObservableShortProperty set(short value) {
-                this.setValue(value);
-                return this;
-        }
+  /**
+   * Sets the property value.
+   *
+   * @param value a new value.
+   * @return a reference to this property.
+   */
+  @Nonnull
+  public ObservableShortProperty set(short value) {
+    this.setValue(value);
+    return this;
+  }
 }
