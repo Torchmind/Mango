@@ -41,7 +41,7 @@ public interface FunctionalLock extends Lock {
   }
 
   /**
-   * Acquires the lock, executes an action and releases the lock.
+   * Executes an arbitrary runnable within the protection of this lock.
    *
    * @param runnable a runnable declaring the action to be taken within the safety of this lock.
    * @see #lock() for a more specific documentation on the locking process.
@@ -75,7 +75,7 @@ public interface FunctionalLock extends Lock {
   }
 
   /**
-   * Attempts to acquire the lock, runProtected and action and release the lock.
+   * Attempts to execute an arbitrary runnable within the protection of this lock.
    *
    * @param runnable a runnable declaring the action to be taken within the safety of this lock.
    * @return true if the lock was acquired, false if another thread is currently holding this lock
@@ -97,8 +97,7 @@ public interface FunctionalLock extends Lock {
   }
 
   /**
-   * Attempts to acquire the lock, runProtected and action and release the lock while limiting the
-   * process of lock acquisition to the specified amount of time.
+   * Attempts to execute an arbitrary runnable within the protection of this lock.
    *
    * @param time an amount of time to wait for the lock holder to release this lock.
    * @param timeUnit a unit of time.
