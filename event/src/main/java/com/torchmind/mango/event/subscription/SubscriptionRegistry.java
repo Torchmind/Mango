@@ -67,6 +67,16 @@ public class SubscriptionRegistry {
   }
 
   /**
+   * Evaluates whether the indicated subscription is currently registered with this registry.
+   *
+   * @param subscription a subscription.
+   * @return true if registered, false otherwise.
+   */
+  public boolean isRegistered(@NonNull Subscription subscription) {
+    return this.subscriptions.contains(subscription);
+  }
+
+  /**
    * Retrieves a list of subscriptions which may intend to be notified about events of the indicated
    * type.
    *
