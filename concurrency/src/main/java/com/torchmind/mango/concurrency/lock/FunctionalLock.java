@@ -36,7 +36,7 @@ public interface FunctionalLock extends Lock {
    */
   @NonNull
   static FunctionalLock wrap(@NonNull Lock lock) {
-    return new FunctionalLockImpl(lock);
+    return new DelegatingFunctionalLock(lock);
   }
 
   /**

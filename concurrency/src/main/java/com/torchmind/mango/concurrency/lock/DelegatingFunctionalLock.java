@@ -22,15 +22,16 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
 /**
- * Provides a delegating smart lock implementation.
+ * Provides a wrapper which delegates all of its lock calls to an arbitrary lock implementation in
+ * order to provide support for the functional lock specification.
  *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
-class FunctionalLockImpl implements FunctionalLock {
+public class DelegatingFunctionalLock implements FunctionalLock {
 
   private final Lock lock;
 
-  FunctionalLockImpl(@NonNull Lock lock) {
+  DelegatingFunctionalLock(@NonNull Lock lock) {
     this.lock = lock;
   }
 

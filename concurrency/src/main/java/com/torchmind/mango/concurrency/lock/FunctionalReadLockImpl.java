@@ -28,7 +28,7 @@ import java.util.function.Supplier;
  *
  * @author <a href="mailto:johannesd@torchmind.com">Johannes Donath</a>
  */
-class FunctionalReadLockImpl extends FunctionalLockImpl implements FunctionalReadLock {
+class FunctionalReadLockImpl extends DelegatingFunctionalLock implements FunctionalReadLock {
 
   FunctionalReadLockImpl(@NonNull Lock lock) {
     super(lock);
