@@ -19,6 +19,7 @@ package com.torchmind.mango.concurrency.lock;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
+import java.util.function.Supplier;
 
 /**
  * Extends the lock specification to provide more modern approaches for executing operations inside
@@ -51,6 +52,23 @@ public interface FunctionalLock extends Lock {
 
     try {
       runnable.run();
+    } finally {
+      this.unlock();
+    }
+  }
+
+  /**
+   * Executes a supplier within the protection of this lock.
+   *
+   * @param supplier a supplier.
+   * @param <R> a return type.
+   * @return a return value.
+   */
+  default <R> R runProtected(@NonNull Supplier<R> supplier) {
+    this.lock();
+
+    try {
+      return supplier.get();
     } finally {
       this.unlock();
     }
