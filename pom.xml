@@ -218,6 +218,7 @@
 
   <modules>
     <module>concurrency</module>
+    <module>event</module>
   </modules>
 
   <profiles>
