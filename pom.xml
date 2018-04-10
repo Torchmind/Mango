@@ -166,6 +166,7 @@
             </jdkToolchain>
 
             <source>1.8</source>
+            <target>1.8</target>
             <release>8</release>
           </configuration>
 
@@ -174,6 +175,7 @@
               <id>default-compile</id>
               <configuration>
                 <source>9</source>
+                <target>9</target>
                 <release>9</release>
               </configuration>
             </execution>
