@@ -44,6 +44,10 @@
 
     <!-- Utilities -->
     <dependency>
+      <groupId>com.torchmind</groupId>
+      <artifactId>reflect</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs-annotations</artifactId>
     </dependency>
