@@ -21,13 +21,13 @@ Usage
 -----
 
 **Artifact Coordinates:** `com.torchmind.mango:<module>:1.0`<br />
-**JavaDoc:** [Concurrency](https://www.javadoc.io/doc/com.torchmind.mango/concurrency/1.0) | [Observable](https://www.javadoc.io/doc/com.torchmind.mango/observable/1.0)
+**JavaDoc:** [Concurrency](https://www.javadoc.io/doc/com.torchmind.mango/concurrency/2.0) | [Event](https://www.javadoc.io/doc/com.torchmind.mango/event/2.0)
 
 ```xml
 <dependency>
   <groupId>com.torchmind.mango</groupId>
   <artifactId><!-- DESIRED MODULE HERE --></artifactId>
-  <version>1.0</version>
+  <version>2.0</version>
 </dependency>
 
 <!-- For unstable releases: -->
@@ -43,7 +43,7 @@ Usage
 <dependency>
   <groupId>com.torchmind.mango</groupId>
   <artifactId><!-- DESIRED MODULE HERE --></artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>2.0-SNAPSHOT</version>
 </dependency>
 ```
 
