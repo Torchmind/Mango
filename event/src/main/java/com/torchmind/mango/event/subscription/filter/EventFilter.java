@@ -100,7 +100,7 @@ public interface EventFilter {
      * @return a reference to this builder.
      */
     @NonNull
-    Builder withEventType(@NonNull Class<?>... types) {
+    public Builder withEventType(@NonNull Class<?>... types) {
       this.eventTypes.addAll(Arrays.asList(types));
       return this;
     }
